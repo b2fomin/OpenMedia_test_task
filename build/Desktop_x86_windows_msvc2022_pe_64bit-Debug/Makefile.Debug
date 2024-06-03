@@ -773,6 +773,19 @@ debug\mainwindow.obj: ..\..\mainwindow.cpp ..\..\mainwindow.h \
 		D:\QT\6.7.1\msvc2019_64\include\QtCore\qlocale.h \
 		D:\QT\6.7.1\msvc2019_64\include\QtGui\qguiapplication_platform.h \
 		D:\QT\6.7.1\msvc2019_64\include\QtWidgets\qtabwidget.h \
+		D:\QT\6.7.1\msvc2019_64\include\QtWidgets\QFileDialog \
+		D:\QT\6.7.1\msvc2019_64\include\QtWidgets\qfiledialog.h \
+		D:\QT\6.7.1\msvc2019_64\include\QtCore\qdir.h \
+		D:\QT\6.7.1\msvc2019_64\include\QtCore\qfile.h \
+		D:\QT\6.7.1\msvc2019_64\include\QtCore\qfiledevice.h \
+		D:\QT\6.7.1\msvc2019_64\include\QtCore\qfileinfo.h \
+		D:\QT\6.7.1\msvc2019_64\include\QtCore\qdatetime.h \
+		D:\QT\6.7.1\msvc2019_64\include\QtCore\qcalendar.h \
+		D:\QT\6.7.1\msvc2019_64\include\QtCore\qtimezone.h \
+		D:\QT\6.7.1\msvc2019_64\include\QtWidgets\qdialog.h \
+		D:\QT\6.7.1\msvc2019_64\include\QtGui\QRegularExpressionValidator \
+		D:\QT\6.7.1\msvc2019_64\include\QtGui\qvalidator.h \
+		D:\QT\6.7.1\msvc2019_64\include\QtCore\qregularexpression.h \
 		ui_mainwindow.h \
 		D:\QT\6.7.1\msvc2019_64\include\QtCore\QVariant \
 		D:\QT\6.7.1\msvc2019_64\include\QtWidgets\QApplication \
@@ -803,8 +816,6 @@ debug\mainwindow.obj: ..\..\mainwindow.cpp ..\..\mainwindow.h \
 		D:\QT\6.7.1\msvc2019_64\include\QtWidgets\qabstractitemdelegate.h \
 		D:\QT\6.7.1\msvc2019_64\include\QtWidgets\qstyleoption.h \
 		D:\QT\6.7.1\msvc2019_64\include\QtWidgets\qabstractspinbox.h \
-		D:\QT\6.7.1\msvc2019_64\include\QtGui\qvalidator.h \
-		D:\QT\6.7.1\msvc2019_64\include\QtCore\qregularexpression.h \
 		D:\QT\6.7.1\msvc2019_64\include\QtWidgets\qslider.h \
 		D:\QT\6.7.1\msvc2019_64\include\QtWidgets\qabstractslider.h \
 		D:\QT\6.7.1\msvc2019_64\include\QtWidgets\qstyle.h \

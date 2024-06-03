@@ -31,13 +31,13 @@ public:
     QVBoxLayout *verticalLayout;
     QGridLayout *gridLayout;
     QLabel *label_2;
-    QLineEdit *lineEdit_2;
+    QLineEdit *secondLine;
     QLabel *label;
-    QLineEdit *lineEdit;
+    QLineEdit *firstLine;
     QPushButton *firstButton;
     QPushButton *secondButton;
     QVBoxLayout *verticalLayout_2;
-    QListWidget *list;
+    QListWidget *listOfDuplicates;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -57,20 +57,20 @@ public:
 
         gridLayout->addWidget(label_2, 1, 1, 1, 1);
 
-        lineEdit_2 = new QLineEdit(centralwidget);
-        lineEdit_2->setObjectName("lineEdit_2");
+        secondLine = new QLineEdit(centralwidget);
+        secondLine->setObjectName("secondLine");
 
-        gridLayout->addWidget(lineEdit_2, 1, 2, 1, 1);
+        gridLayout->addWidget(secondLine, 1, 2, 1, 1);
 
         label = new QLabel(centralwidget);
         label->setObjectName("label");
 
         gridLayout->addWidget(label, 0, 1, 1, 1);
 
-        lineEdit = new QLineEdit(centralwidget);
-        lineEdit->setObjectName("lineEdit");
+        firstLine = new QLineEdit(centralwidget);
+        firstLine->setObjectName("firstLine");
 
-        gridLayout->addWidget(lineEdit, 0, 2, 1, 1);
+        gridLayout->addWidget(firstLine, 0, 2, 1, 1);
 
         firstButton = new QPushButton(centralwidget);
         firstButton->setObjectName("firstButton");
@@ -87,10 +87,10 @@ public:
 
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setObjectName("verticalLayout_2");
-        list = new QListWidget(centralwidget);
-        list->setObjectName("list");
+        listOfDuplicates = new QListWidget(centralwidget);
+        listOfDuplicates->setObjectName("listOfDuplicates");
 
-        verticalLayout_2->addWidget(list);
+        verticalLayout_2->addWidget(listOfDuplicates);
 
 
         verticalLayout->addLayout(verticalLayout_2);

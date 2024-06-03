@@ -2,9 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QStringList>
 #include <filesystem>
-#include <string>
-#include <vector>
 namespace fs = std::filesystem;
 
 QT_BEGIN_NAMESPACE
@@ -22,12 +21,24 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     // private fields
+private slots:
+    void on_firstButton_clicked();
+
+    void on_secondButton_clicked();
+
+    void on_firstLine_inputRejected();
+
+    void on_secondLine_inputRejected();
+
+    void on_firstLine_editingFinished();
+
+    void on_secondLine_editingFinished();
+
 private:
     Ui::MainWindow *ui;
     // private methods
 private:
-    std::vector<std::string> find_dublicates(std::vector<fs::path> &first_dir,
-                                             std::vector<fs::path> &second_dir);
+    QStringList find_dublicates(fs::path &first_dir, fs::path &second_dir);
     void update_list();
 };
 #endif // MAINWINDOW_H
