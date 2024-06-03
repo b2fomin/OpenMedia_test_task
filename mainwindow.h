@@ -26,7 +26,8 @@ private:
     Ui::MainWindow *ui;
     // private methods
 private:
-    std::vector<std::string> find_dublicates(std::vector<fs::path> &first,
-                                             std::vector<fs::path> &second);
+    std::vector<std::string> find_dublicates(std::vector<fs::path> &first_dir,
+                                             std::vector<fs::path> &second_dir);
+    void update_list();
 };
 #endif // MAINWINDOW_H
