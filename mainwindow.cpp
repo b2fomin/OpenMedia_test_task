@@ -4,6 +4,7 @@
 #include <QToolTip>
 #include "ui_mainwindow.h"
 #include <fstream>
+#include <iterator>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -11,11 +12,11 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QRegularExpression regExp;
-    regExp.setPattern("/^[a-zA-Z]:\\\\(?:\\w+\\\\?)*$/");
-    QRegularExpressionValidator *validator = new QRegularExpressionValidator{regExp, this};
-    ui->firstLine->setValidator(validator);
-    ui->secondLine->setValidator(validator);
+    // QRegularExpression regExp;
+    // regExp.setPattern("^[a-z]:\\\\(?:[^\\\\/:*?<>|\\\\r\n]+\\)*[^\\/:*?"<>|\r\n]*$");
+    // QRegularExpressionValidator *validator = new QRegularExpressionValidator{regExp, this};
+    // ui->firstLine->setValidator(validator);
+    // ui->secondLine->setValidator(validator);
 }
 
 MainWindow::~MainWindow()
@@ -27,28 +28,22 @@ QStringList MainWindow::find_dublicates(fs::path &first_dir, fs::path &second_di
 {
     QStringList res;
     fs::recursive_directory_iterator first_it{first_dir};
-    fs::recursive_directory_iterator second_it{second_dir};
     for (const auto &first_path : first_it) {
         if (fs::is_directory(first_path.status()))
             continue;
         std::ifstream first_stream{first_path.path().string(), std::ios::binary};
+        fs::recursive_directory_iterator second_it{second_dir};
         for (const auto &second_path : second_it) {
             if (fs::is_directory(second_path.status()))
                 continue;
             std::ifstream second_stream{second_path.path().string(), std::ios::binary};
-            bool equal = true;
-            do {
-                if (first_stream.get() != second_stream.get()) {
-                    equal = false;
-                    break;
-                }
-            } while (!first_stream.eof() && !second_stream.eof());
-
-            if (!first_stream.eof() || !second_stream.eof()) {
-                equal = false;
-            }
-            if (equal) {
-                res.push_back(QString(first_path.path().filename().string().data()));
+            auto filename = QString(first_path.path().filename().string().data());
+            if (fs::file_size(first_path.path()) == fs::file_size(second_path.path())
+                && !res.contains(filename)
+                && std::equal(std::istreambuf_iterator<char>(first_stream.rdbuf()),
+                              std::istreambuf_iterator<char>(),
+                              std::istreambuf_iterator<char>(second_stream.rdbuf()))) {
+                res.push_back(filename);
             }
         }
     }
@@ -63,7 +58,7 @@ void MainWindow::update_list()
         return;
     fs::path first_path{ui->firstLine->text().toStdString()};
     fs::path second_path{ui->secondLine->text().toStdString()};
-    if (!fs::exists(first_path) || fs::exists(second_path))
+    if (!fs::exists(first_path) || !fs::exists(second_path))
         return;
     auto duplicates = find_dublicates(first_path, second_path);
     ui->listOfDuplicates->addItems(duplicates);
