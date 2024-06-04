@@ -3,8 +3,8 @@
 
 #include <QMainWindow>
 #include <QStringList>
-#include <filesystem>
-namespace fs = std::filesystem;
+#include <boost/filesystem.hpp>
+namespace fs = boost::filesystem;
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

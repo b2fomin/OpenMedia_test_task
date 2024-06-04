@@ -29,11 +29,11 @@ QStringList MainWindow::find_dublicates(fs::path &first_dir, fs::path &second_di
     fs::recursive_directory_iterator first_it{first_dir};
     fs::recursive_directory_iterator second_it{second_dir};
     for (const auto &first_path : first_it) {
-        if (first_path.is_directory())
+        if (fs::is_directory(first_path.status()))
             continue;
         std::ifstream first_stream{first_path.path().string(), std::ios::binary};
         for (const auto &second_path : second_it) {
-            if (second_path.is_directory())
+            if (fs::is_directory(second_path.status()))
                 continue;
             std::ifstream second_stream{second_path.path().string(), std::ios::binary};
             bool equal = true;
@@ -63,6 +63,8 @@ void MainWindow::update_list()
         return;
     fs::path first_path{ui->firstLine->text().toStdString()};
     fs::path second_path{ui->secondLine->text().toStdString()};
+    if (!fs::exists(first_path) || fs::exists(second_path))
+        return;
     auto duplicates = find_dublicates(first_path, second_path);
     ui->listOfDuplicates->addItems(duplicates);
 }

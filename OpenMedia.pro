@@ -18,6 +18,9 @@ HEADERS += \
 FORMS += \
     mainwindow.ui
 
+INCLUDEPATH += "D:\Microsoft VisualStudio\Packages\boost_1_82_0"
+LIBS += -L"D:\Microsoft VisualStudio\Packages\boost_1_82_0\stage\lib"
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
