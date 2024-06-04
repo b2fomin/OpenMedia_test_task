@@ -20,20 +20,20 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    // private fields
 private slots:
     void on_firstButton_clicked();
 
     void on_secondButton_clicked();
 
-    void on_firstLine_inputRejected();
+    // void on_firstLine_inputRejected();
 
-    void on_secondLine_inputRejected();
+    // void on_secondLine_inputRejected();
 
     void on_firstLine_editingFinished();
 
     void on_secondLine_editingFinished();
 
+    // private fields
 private:
     Ui::MainWindow *ui;
     // private methods

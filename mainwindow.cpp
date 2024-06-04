@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     // QRegularExpression regExp;
-    // regExp.setPattern("^[a-z]:\\\\(?:[^\\\\/:*?<>|\\\\r\n]+\\)*[^\\/:*?"<>|\r\n]*$");
+    // regExp.setPattern("^?:[a-zA-Z]\:|\\\\[\w\s\.]+\\[\w\s\.$]+)\\(?:[\w\s\.]+\\)*)(?<BaseName>[\w\s\.]*?)$");
     // QRegularExpressionValidator *validator = new QRegularExpressionValidator{regExp, this};
     // ui->firstLine->setValidator(validator);
     // ui->secondLine->setValidator(validator);
@@ -26,14 +26,31 @@ MainWindow::~MainWindow()
 
 QStringList MainWindow::find_dublicates(fs::path &first_dir, fs::path &second_dir)
 {
+    fs::recursive_directory_iterator begin_first{first_dir}, end_first;
+    std::size_t first_count = std::distance(begin_first, end_first) - 1;
+
+    fs::recursive_directory_iterator begin_second{second_dir}, end_second;
+    std::size_t second_count = std::distance(begin_second, end_second) - 1;
+
+    if (!first_count || !second_count) {
+        return QStringList{};
+    }
+
+    std::size_t count = first_count * second_count;
+    ui->progressBar->setMaximum(count);
+
     QStringList res;
     fs::recursive_directory_iterator first_it{first_dir};
+
     for (const auto &first_path : first_it) {
-        if (fs::is_directory(first_path.status()))
+        if (fs::is_directory(first_path.status())) {
+            ui->progressBar->setValue(ui->progressBar->value() + second_count);
             continue;
+        }
         std::ifstream first_stream{first_path.path().string(), std::ios::binary};
         fs::recursive_directory_iterator second_it{second_dir};
         for (const auto &second_path : second_it) {
+            ui->progressBar->setValue(ui->progressBar->value() + 1);
             if (fs::is_directory(second_path.status()))
                 continue;
             std::ifstream second_stream{second_path.path().string(), std::ios::binary};
@@ -76,23 +93,22 @@ void MainWindow::on_secondButton_clicked()
     update_list();
 }
 
-void MainWindow::on_firstLine_inputRejected()
-{
-    ui->firstLine->setText(ui->firstLine->text());
-    QPoint point = QPoint(geometry().left() + ui->firstLine->geometry().left(),
-                          geometry().top() + ui->firstLine->geometry().bottom());
+// void MainWindow::on_firstLine_inputRejected()
+// {
+//     ui->firstLine->setText(ui->firstLine->text());
+//     QPoint point = QPoint(geometry().left() + ui->firstLine->geometry().left(),
+//                           geometry().top() + ui->firstLine->geometry().bottom());
 
-    QToolTip::showText(point, "Invalid address");
-}
+//     QToolTip::showText(point, "Invalid address");
+// }
 
-void MainWindow::on_secondLine_inputRejected()
-{
-    ui->secondLine->setText(ui->secondLine->text());
-    QPoint point = QPoint(geometry().left() + ui->secondLine->geometry().left(),
-                          geometry().top() + ui->secondLine->geometry().bottom());
+// void MainWindow::on_secondLine_inputRejected()
+// {
+//     QPoint point = QPoint(geometry().left() + ui->secondLine->geometry().left(),
+//                           geometry().top() + ui->secondLine->geometry().bottom());
 
-    QToolTip::showText(point, "Invalid address");
-}
+//     QToolTip::showText(point, "Invalid address");
+// }
 
 void MainWindow::on_firstLine_editingFinished()
 {
